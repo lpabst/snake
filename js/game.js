@@ -70,7 +70,7 @@ var game = {
     checkForCollision: function(data){
         let {snake, food, canvas} = data;
 
-        // Within Left/Right Bounds
+        // Within Left/Right Bounds of Food
         if ((snake.x <= food.x && (snake.x + snake.w) >= food.x) || (snake.x <= (food.x+food.w) && (snake.x+snake.w) >= (food.x+food.w))){
             // bottom of snake collision
             if ((snake.y+snake.h) >= food.y && (snake.y+snake.h) <= (food.y+food.h)){
@@ -87,6 +87,8 @@ var game = {
             data.gameOver = true;
         }
 
+        // Hitting your own tail ends game
+
     },
 
     eatFood(data){
@@ -101,13 +103,16 @@ var game = {
         // Add points
         data.score += 100 + (20 * data.level);
         data.foodEaten++;
+
+        // Every 5 food increase the level and the speed (and add a wall)
         if (data.foodEaten % 5 === 0){
             data.level++;
-            data.snake.speedMultiplier++;
+            data.snake.speedMultiplier += 0.2;
+            game.addWall(data);
         }
 
-        // Make snake longer
-
+        // Make snake tail longer
+        data.snake.tail.push([data.snake.x, data.snake.y]);
     },
 
     render: function(data){
@@ -117,9 +122,14 @@ var game = {
         context.fillStyle = '#000000';
         context.fillRect(0, 0, data.canvas.width, data.canvas.height);
 
-        // white snake and text
+        // white snake and tail
         context.fillStyle = 'white';
         context.fillRect(snake.x, snake.y, snake.w, snake.h);
+        snake.tail.forEach( function(pos) {
+            context.fillRect(pos[0], pos[1], snake.w, snake.h);
+        })
+
+        // white text
         context.font = '24px Arial';
         context.fillText('Score: ' + data.score, 50, 50);
         context.fillText('Level: ' + data.level, 50, 80);
@@ -127,6 +137,10 @@ var game = {
         // Red food
         context.fillStyle = 'red';
         context.fillRect(food.x, food.y, food.w, food.h);
+    },
+
+    addWall: function(data){
+
     },
 
     gameOver(data){
@@ -145,12 +159,12 @@ var game = {
         context.fillText('Score: ' + data.score, 50, 50);
         context.fillText('Level: ' + data.level, 50, 80);
         context.font = '42px Arial';
-        context.fillText('Game Over', 220, 220);
+        context.fillText('Game Over', 200, 300);
 
         // Red Food final location
         context.fillStyle = 'red';
         context.fillRect(food.x, food.y, food.w, food.h);
-    }
+    },
 
 }
 
