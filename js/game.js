@@ -72,32 +72,7 @@ var game = {
     checkForCollision: function(data){
         let {snake, food, canvas} = data;
 
-        function checkIfTwoEntitiesCollided(entity1, entity2){
-            // Within Left/Right Bounds
-            if ((entity1.x > entity2.x && entity1.x < (entity2.x+entity2.w)) || ((entity1.x+entity1.w) > entity2.x && (entity1.x+entity1.w) < (entity2.x+entity2.w))){
-                console.log('in left right bounds')
-                console.log(entity2);
-                // bottom of entity1 collision
-                if ((entity1.y+entity1.h) > entity2.y && (entity1.y+entity1.h) < (entity2.y+entity2.h)){
-                    console.log('bottom of ent1 collision')
-                    return true;
-                }
-                // top of entity1 collision
-                if (entity1.y > entity2.y && entity1.y < (entity2.y+entity2.h)){
-                    console.log('top of ent1 collision')
-                    return true
-                }
-            }
-
-            // Exact same location
-            if (entity1.x === entity2.x && entity1.y === entity2.y){
-                return true;
-            }
-
-            return false;
-        }
-
-        if (checkIfTwoEntitiesCollided(snake, food)){
+        if (snake.x === food.x && snake.y === food.y){
             return game.eatFood(data);
         }
         
@@ -106,15 +81,9 @@ var game = {
             return data.gameOver = true;
         }
 
-        // Hitting your own tail ends game
+        // Hitting any piece of your0   tail array ends the game
         snake.tail.forEach( function(pos){
-            let tailEntity = {
-                x: pos[0],
-                y: pos[1],
-                h: snake.h,
-                w: snake.w
-            }
-            if (checkIfTwoEntitiesCollided(snake, tailEntity)){
+            if (snake.x === pos[0] && snake.y === pos[1]){
                 return data.gameOver = true;
             }
         })
