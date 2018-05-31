@@ -7,6 +7,7 @@ var entities = {
         this.h = 10;
         this.velX = 1;
         this.velY = 0;
+        this.speedMultiplier = 2;
     
         this.changeDirection = function(newVelX, newVelY){
             this.velX = newVelX;
@@ -14,8 +15,8 @@ var entities = {
         }
     
         this.update = function(){
-            this.x += this.velX;
-            this.y += this.velY;
+            this.x += this.velX * this.speedMultiplier;
+            this.y += this.velY * this.speedMultiplier;
         }
     },
 
