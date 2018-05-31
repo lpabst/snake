@@ -7,5 +7,23 @@ body{
     width: 600px;
     height: 600px;
     margin: 100px auto;
+    position: relative;
+}
+
+.canvasWrapper canvas{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+#messageDiv{
+    width: 400px;
+    height: auto;
+    position: absolute;
+    left: 100px;
+    top: 320px;
+    color: white;
+    z-index: 120;
+    text-align: center;
 }
 
