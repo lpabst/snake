@@ -27,7 +27,11 @@ var game = {
             if (data.gameOver){
                 game.gameOver(data);
             }else{
-                if (data.animationFrame % 5 === 0){
+                // Every 2 levels, the speedModulus goes down, and the snake's speed goes up (up to a certain point)
+                let speedModulus = 6 - Math.floor(data.level / 2);
+                if (speedModulus < 2) speedModulus = 2;
+
+                if (data.animationFrame % speedModulus === 0){
                     game.update(data);
                     game.render(data);
                 }
