@@ -26,7 +26,11 @@ function getHighScores(){
 
     httpRequest.onreadystatechange = alertContents;
     httpRequest.open('POST', '/api/runQuery');
-    httpRequest.send('queryString=' + encodeURIComponent('select * from snakehighscores order by score desc limit 5'));
+    httpRequest.send( JSON.stringify({
+        queryString: 'hello',
+        name: 'Loren',
+        age: 44,
+    }));
 
     function alertContents() {
         if (httpRequest.readyState === XMLHttpRequest.DONE) {
