@@ -1,5 +1,8 @@
 var game = {
-    init: function () {
+    init: function () { 
+        document.getElementById('messageDiv').innerText = '';
+        document.querySelectorAll('.btn').forEach( btn => btn.style.visibility = 'hidden');
+
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
         var animationFrame = 0;
@@ -208,8 +211,9 @@ var game = {
         if (data.gameOverMessage) {
             document.getElementById('messageDiv').innerText = data.gameOverMessage;
         }
+        
+        document.querySelectorAll('.btn').forEach( btn => btn.style.visibility = 'visible');
     },
 
 }
 
-game.init();

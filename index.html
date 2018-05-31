@@ -10,11 +10,23 @@
 </head>
 <body>
     
-    <div class='canvasWrapper'>
-        <canvas width='600' height='600' id='canvas'></canvas>
-        <div id='messageDiv' ></div>
+    <div class="gameWrapper" >
+
+        <div class='btn' id="startBtn" onclick="game.init()">New Game</div>
+        <div class='btn' id="highScoresBtn" onclick="showHighScores()">High Scores</div>
+
+        <div class='canvasWrapper'>
+            <canvas width='600' height='600' id='canvas'></canvas>
+            <div id='messageDiv' ></div>
+        </div>
+
+        <div id='highScores'>
+            <div class='closeX' onclick="closeHighScores()"> x </div>
+        </div>
+
     </div>
 
+    <script src='./js/highscores.js' ></script>
     <script src='./js/entities.js' ></script>
     <script src='./js/game.js' ></script>
 </body>
