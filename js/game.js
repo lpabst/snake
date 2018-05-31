@@ -16,7 +16,7 @@ var game = {
         var randY = Math.floor(Math.random() * (canvas.height/10)) * 10;
         var food = new entities.Food(randX, randY);
         
-        var data = {canvas, context, animationFrame, gameOver, snake, score, foodEaten, level, food};
+        var data = {canvas, context, animationFrame, gameOver, snake, score, foodEaten, level, walls, food};
 
         window.addEventListener('keydown', function(e){ game.handleInput(e, data) });
 
@@ -80,15 +80,26 @@ var game = {
             return game.eatFood(data);
         }
         
-        // Wall collision ends game
+        // Outside wall collision ends game
         if (snake.y < 0 || snake.x < 0 || (snake.y+snake.h) > canvas.height || (snake.x+snake.w) > canvas.width){
             return data.gameOver = true;
         }
 
-        // Hitting any piece of your0   tail array ends the game
+        // Hitting any piece of your tail array ends the game
         snake.tail.forEach( function(pos){
             if (snake.x === pos[0] && snake.y === pos[1]){
                 return data.gameOver = true;
+            }
+        })
+
+        // Obstacle wall collision loses points
+        data.walls.forEach( function(wall){
+            if (snake.x >= wall.x && snake.x <= (wall.x+wall.w) && snake.y >= wall.y && snake.y <= (wall.y+wall.h)){
+                data.score -= 500;
+                if (data.score < 0){
+                    data.gameOverMessage = 'You ran into too many obstacles and lost all of your points';
+                    data.gameOver = true;
+                }
             }
         })
     },
@@ -97,8 +108,22 @@ var game = {
         let {food, score, foodEaten, level} = data;
 
         // Move food
-        var randX = Math.floor(Math.random() * (canvas.width/10)) * 10;
-        var randY = Math.floor(Math.random() * (canvas.height/10)) * 10;
+        let randX, randY;
+        let findingGoodLocation = true;
+
+        while(findingGoodLocation){
+            randY = Math.floor(Math.random() * (canvas.height/10)) * 10;
+            randX = Math.floor(Math.random() * (canvas.width/10)) * 10;
+
+            // end the for loop, unless the food is on an obstacle wall, in which case we'll run the loop again until we pick a spot that isn't on a wall
+            findingGoodLocation = false;
+            data.walls.forEach( function(wall){
+                if (randX >= wall.x && randX <= (wall.x+wall.w) && randY >= wall.y && randY <= (wall.y+wall.h)){
+                    findingGoodLocation = true;
+                }
+            })
+        }
+
         data.food.x = randX;
         data.food.y = randY;
 
@@ -130,13 +155,20 @@ var game = {
             context.fillRect(pos[0], pos[1], snake.w, snake.h);
         })
 
+        // red Walls
+        context.fillStyle = 'red';
+        data.walls.forEach( function(wall){
+            context.fillRect(wall.x, wall.y, wall.w, wall.h);
+        })
+
         // white text
+        context.fillStyle = 'white';
         context.font = '24px Arial';
         context.fillText('Score: ' + data.score, 50, 50);
         context.fillText('Level: ' + data.level, 50, 80);
 
-        // Red food
-        context.fillStyle = 'red';
+        // green food
+        context.fillStyle = 'green';
         context.fillRect(food.x, food.y, food.w, food.h);
     },
 
@@ -156,7 +188,7 @@ var game = {
             height = 10;
         }
 
-        let newWall = entities.Wall(randX, randY, width, height);
+        let newWall = new entities.Wall(randX, randY, width, height);
         data.walls.push(newWall);
     },
 
@@ -168,6 +200,11 @@ var game = {
         context.fillStyle = 'white';
         context.font = '42px Arial';
         context.fillText('Game Over', 200, 300);
+
+        if (data.gameOverMessage){
+            context.font = '26px Arial';
+            context.fillText(optionalMessage, 200, 350);
+        }
     },
 
 }
