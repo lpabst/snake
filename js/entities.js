@@ -45,6 +45,13 @@ var entities = {
         this.y = x;
         this.w = 10;
         this.h = 10;
-    }
+    },
+
+    Wall: function(x, y, w, h){
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+    },
     
 }

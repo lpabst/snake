@@ -9,6 +9,7 @@ var game = {
         var score = 0;
         var foodEaten = 0;
         var level = 1;
+        var walls = [];
         
         // Add food to the screen
         var randX = Math.floor(Math.random() * (canvas.width/10)) * 10;
@@ -37,7 +38,6 @@ var game = {
                 }
     
                 data.animationFrame++;
-    
                 window.requestAnimationFrame(loop);
             }
         }
@@ -141,7 +141,23 @@ var game = {
     },
 
     addWall: function(data){
+        let randX = Math.floor(Math.random() * (canvas.width/10)) * 10;
+        let randY = Math.floor(Math.random() * (canvas.height/10)) * 10;
+        let width, height;
+        let coinFlip = Math.random();
 
+        if (coinFlip < 0.5){
+            //vertical wall
+            width = 10;
+            height = Math.floor(Math.random() * 40) * 10;
+        }else{
+            // horizontal wall
+            width = Math.floor(Math.random() * 40) * 10;
+            height = 10;
+        }
+
+        let newWall = entities.Wall(randX, randY, width, height);
+        data.walls.push(newWall);
     },
 
     gameOver(data){
