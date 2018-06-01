@@ -24,6 +24,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 	box-sizing: border-box;
 	font-family: sans-serif;
+	user-select: none;
 }
 
 /*p{
