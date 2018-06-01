@@ -22,7 +22,9 @@ var game = {
 
         var data = { canvas, context, animationFrame, gameOver, gameRunning, snake, score, foodEaten, level, walls, food };
 
-        window.addEventListener('keydown', function (e) { game.handleInput(e, data) });
+        window.addEventListener('keydown', function(e) { 
+            game.handleInput(e, data) 
+        });
 
         game.run(data);
     },
@@ -53,25 +55,31 @@ var game = {
     },
 
     handleInput: function (e, data) {
-        var snake = data.snake;
+                
+        if (data.gameOver) return;
 
-        // Updates direction, but doesn't allow snake to double back on itself
-        if (e.keyCode === 37 && snake.velX !== 1) {
-            e.preventDefault();
-            snake.changeDirection(-1, 0);
-        } else if (e.keyCode === 38 && snake.velY !== 1) {
-            e.preventDefault();
-            snake.changeDirection(0, -1);
-        } else if (e.keyCode === 39 && snake.velX !== -1) {
-            e.preventDefault();
-            snake.changeDirection(1, 0);
-        } else if (e.keyCode === 40 && snake.velY !== -1) {
-            e.preventDefault();
-            snake.changeDirection(0, 1);
-        }else if(e.keyCode === 32) {
+        // space bar pauses game
+        if(e.keyCode === 32) {
             e.preventDefault();
             game.togglePauseGame(data);
         }
+
+        var snake = data.snake; 
+
+        // Updates direction if game is not paused, but doesn't allow the snake to double back on itself
+        if (e.keyCode === 37 && snake.velX !== 1 && data.gameRunning) {
+            e.preventDefault();
+            snake.changeDirection(-1, 0);
+        } else if (e.keyCode === 38 && snake.velY !== 1 && data.gameRunning) {
+            e.preventDefault();
+            snake.changeDirection(0, -1);
+        } else if (e.keyCode === 39 && snake.velX !== -1 && data.gameRunning) {
+            e.preventDefault();
+            snake.changeDirection(1, 0);
+        } else if (e.keyCode === 40 && snake.velY !== -1 && data.gameRunning) {
+            e.preventDefault();
+            snake.changeDirection(0, 1);
+        } 
     },
 
     togglePauseGame: function(data){
