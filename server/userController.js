@@ -3,10 +3,10 @@ const userController = {
         const db = req.app.get('db');
 
         db.getHighScores()
-        .then( result => {
+        .then( result =>{
             return res.status(200).send(result);
         })
-        .catch( err => console.log(err) )
+        .catch( err => {} )
     },
 
     newHighScore: function(req, res){
@@ -21,10 +21,7 @@ const userController = {
             .then(done => {})
             .catch(err => {})
         })
-        .catch( err => console.log(err) )
-        
-
-        
+        .catch( err => {} )
     }
 }
 
