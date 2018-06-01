@@ -215,13 +215,17 @@ var game = {
         if (coinFlip < 0.5) {
             //vertical wall
             width = 10;
-            // random multiple of 10 between 50 - 400
+            // random multiple of 10 between 200 - 400
             height = Math.floor(Math.random() * 20) * 10 + 200;
         } else {
             // horizontal wall
             width = Math.floor(Math.random() * 20) * 10 + 200;
             height = 10;
         }
+
+        // Makes sure entire obstacle line ends up on board
+        if (randX + width > canvas.width) { randX = canvas.width - width }
+        if (randY + height > canvas.height) { randY = canvas.height - height }
 
         let newWall = new entities.Wall(randX, randY, width, height);
         data.walls.push(newWall);
