@@ -7,7 +7,11 @@ var config = require('./config.js');
 
 const app = module.exports = express();
 
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
+
 app.use(session({
   secret: config.secret,
     resave: true,

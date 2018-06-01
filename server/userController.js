@@ -1,13 +1,14 @@
 module.exports = {
     runQuery: function(req, res){
         const db = req.app.get('db');
-        let { queryString } = req.body;
-
-        console.log(req);
-
-        db.query(queryString)
-        .then( res => {
-            console.log(res);
+        let { whichQuery, queryArray } = req.body;
+        
+        db[whichQuery](queryArray)
+        .then( result => {
+            console.log(result);
+            return res.status(200).send(result)
         })
+        .catch( err => console.log(err) )
     }
 }
+
