@@ -101,7 +101,7 @@ var game = {
 
         // Obstacle wall collision loses points
         data.walls.forEach(function (wall) {
-            if (snake.x >= wall.x && snake.x <= (wall.x + wall.w) && snake.y >= wall.y && snake.y <= (wall.y + wall.h)) {
+            if (snake.x >= wall.x && snake.x < (wall.x + wall.w) && snake.y >= wall.y && snake.y < (wall.y + wall.h)) {
                 data.score -= 500;
                 if (data.score < 0) {
                     data.gameOverMessage = 'You ran into too many obstacles and lost all of your points';
