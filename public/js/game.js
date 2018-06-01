@@ -215,10 +215,11 @@ var game = {
         if (coinFlip < 0.5) {
             //vertical wall
             width = 10;
-            height = Math.floor(Math.random() * 40) * 10;
+            // random multiple of 10 between 50 - 400
+            height = Math.floor(Math.random() * 35) * 10 + 50;
         } else {
             // horizontal wall
-            width = Math.floor(Math.random() * 40) * 10;
+            width = Math.floor(Math.random() * 35) * 10 + 50;
             height = 10;
         }
 
