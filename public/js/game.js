@@ -216,10 +216,10 @@ var game = {
             //vertical wall
             width = 10;
             // random multiple of 10 between 50 - 400
-            height = Math.floor(Math.random() * 35) * 10 + 50;
+            height = Math.floor(Math.random() * 20) * 10 + 200;
         } else {
             // horizontal wall
-            width = Math.floor(Math.random() * 35) * 10 + 50;
+            width = Math.floor(Math.random() * 20) * 10 + 200;
             height = 10;
         }
 
