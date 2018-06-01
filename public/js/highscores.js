@@ -7,18 +7,30 @@ function closeHighScores(){
     document.getElementById('highScores').style.display = 'none';
 }
 
+function displayUsername(){
+    var username = document.getElementById('username').value;
+    document.getElementById('usernameDisplay').innerText = username;
+}
+
 function getHighScores(){    
-    $.post('/api/runQuery', {
-        whichQuery: 'getHighScores',
-        queryArray: []
-    })
+    $.get('/api/getHighScores')
     .done( res => {
         let highScores = res;
-        
+        window.highScores = highScores;
+
+        let tableBody = document.getElementById('highScoresTableBody');
+        tableBody.innerHTML = `                    
+            <tr>
+                <th colspan="2" style="text-align: center;">High Scores</th>
+            </tr>
+            <tr>
+                <th>Score</th>
+                <th>Name</th>
+            </tr>`
+
         highScores.forEach( obj => {
-            let tableBody = document.getElementById('highScoresTableBody')
-            
             let tr = document.createElement('tr');
+            
             tr.innerHTML = ''
             +'<td>'
                 + obj.score
@@ -31,4 +43,6 @@ function getHighScores(){
         })
     })
 }
+
+getHighScores();
 

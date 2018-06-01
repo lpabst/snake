@@ -31,8 +31,8 @@ app.use(express.static(__dirname + './../public'))
 var userController = require("./userController.js");
 
 //////////Endpoints for the front end
-app.post('/api/runQuery', userController.runQuery);
-
+app.get('/api/getHighScores', userController.getHighScores);
+app.post('/api/newHighScore', userController.newHighScore);
 
 
 app.listen(config.port, console.log("you are now connected on " + config.port));

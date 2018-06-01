@@ -12,6 +12,8 @@
     
     <div class="gameWrapper" >
 
+        <center><p id='usernameDisplay'></p></center>
+        <center><input id='username' placeholder="Type Your Name" onblur="displayUsername()" /></center>
         <div class='btn' id="startBtn" onclick="game.init()">New Game</div>
         <div class='btn' id="highScoresBtn" onclick="showHighScores()">High Scores</div>
 
@@ -24,13 +26,7 @@
             <div class='closeX' onclick="closeHighScores()"> x </div>
             <table id='highScoresTable'>
                 <tbody id='highScoresTableBody'>
-                    <tr>
-                        <th colspan="2" style="text-align: center;">High Scores</th>
-                    </tr>
-                    <tr>
-                        <th>Score</th>
-                        <th>Name</th>
-                    </tr>
+                    <!-- High Score data goes here -->
                 </tbody>
             </table>
         </div>

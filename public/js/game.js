@@ -53,12 +53,16 @@ var game = {
 
         // Updates direction, but doesn't allow snake to double back on itself
         if (e.keyCode === 37 && snake.velX !== 1) {
+            e.preventDefault();
             snake.changeDirection(-1, 0);
         } else if (e.keyCode === 38 && snake.velY !== 1) {
+            e.preventDefault();
             snake.changeDirection(0, -1);
         } else if (e.keyCode === 39 && snake.velX !== -1) {
+            e.preventDefault();
             snake.changeDirection(1, 0);
         } else if (e.keyCode === 40 && snake.velY !== -1) {
+            e.preventDefault();
             snake.changeDirection(0, 1);
         }
     },
@@ -213,6 +217,16 @@ var game = {
         }
         
         document.querySelectorAll('.btn').forEach( btn => btn.style.visibility = 'visible');
+
+        // Send score to back end
+        let name = document.getElementById('username').value || 'anonymous' 
+        $.post('/api/newHighScore', {
+            name: name,
+            score: data.score
+        })
+        .done( res => {
+            window.getHighScores();
+        })
     },
 
 }
