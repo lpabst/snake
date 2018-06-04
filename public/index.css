@@ -2,7 +2,7 @@
 .gameWrapper{
     width: 100%;
     min-height: 100vh;
-    padding-top: 10px;
+    padding: 10px 0px;
     background: #ddd;
     position: relative;
 }
@@ -48,6 +48,7 @@
     position: absolute;
     top: 0px;
     left: 0px;
+    background: black;
 }
 
 #messageDiv{
@@ -59,6 +60,13 @@
     color: white;
     z-index: 120;
     text-align: center;
+}
+
+.instructions{
+    width: 400px;
+    height: auto;
+    margin: 50px auto 0px auto;
+    list-style-type: disc;
 }
 
 #highScores{
