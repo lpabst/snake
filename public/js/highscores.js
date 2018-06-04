@@ -12,6 +12,13 @@ function displayUsername(){
     document.getElementById('usernameDisplay').innerText = username;
 }
 
+// runs on page load, and also when user updates the value
+function updateObstaclePreference(e){
+    var obstaclePreference = document.getElementById('obstaclePreference');
+    window.obstaclePreference = obstaclePreference.value;
+}
+updateObstaclePreference();
+
 function getHighScores(){    
     $.get('/api/getHighScores')
     .done( res => {

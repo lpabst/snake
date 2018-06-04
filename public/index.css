@@ -2,12 +2,19 @@
 .gameWrapper{
     width: 100%;
     min-height: 100vh;
-    padding-top: 20px;
+    padding-top: 10px;
     background: #ddd;
     position: relative;
 }
 
+.controls{
+    width: 200px;
+    height: auto;
+    margin: 0 auto;
+}
+
 #username{
+    width: 190px;
     margin-bottom: 10px;
 }
 
@@ -17,7 +24,7 @@
     text-align: center;
     font-size: 16px;
     line-height: 30px;
-    margin: 0 auto 10px auto;
+    margin: 10px 0px;
     border-radius: 3px;
     background: #00217a;
     color: white;

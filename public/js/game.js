@@ -3,6 +3,7 @@ var game = {
         document.getElementById('messageDiv').innerText = '';
         document.querySelectorAll('.btn').forEach( btn => btn.style.visibility = 'hidden');
 
+        var obstaclePreference = window.obstaclePreference || '0';
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
         var animationFrame = 0;
@@ -20,7 +21,7 @@ var game = {
         var randY = Math.floor(Math.random() * (canvas.height / 10)) * 10;
         var food = new entities.Food(randX, randY);
 
-        var data = { canvas, context, animationFrame, gameOver, gameRunning, snake, score, foodEaten, level, walls, food };
+        var data = { obstaclePreference, canvas, context, animationFrame, gameOver, gameRunning, snake, score, foodEaten, level, walls, food };
 
         window.addEventListener('keydown', function(e) { 
             game.handleInput(e, data) 
@@ -130,13 +131,20 @@ var game = {
             }
         })
 
-        // Obstacle wall collision loses points
+        // Obstacle wall collision either loses points or kills the user, based on user preference befrore game started
         data.walls.forEach(function (wall) {
             if (snake.x >= wall.x && snake.x < (wall.x + wall.w) && snake.y >= wall.y && snake.y < (wall.y + wall.h)) {
-                data.score -= 500;
-                if (data.score < 0) {
-                    data.gameOverMessage = 'You ran into too many obstacles and lost all of your points';
+                if (data.obstaclePreference == '0'){
+                    // Kill user
+                    data.gameOverMessage = 'You ran into an obstacle and died (You can edit this preference in the settings)';
                     data.gameOver = true;
+                }else {
+                    // Deduct 500 pts
+                    data.score -= 500;
+                    if (data.score < 0) {
+                        data.gameOverMessage = 'You ran into too many obstacles and lost all of your points (You can edit this preference in the settings)';
+                        data.gameOver = true;
+                    }
                 }
             }
         })
