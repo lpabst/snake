@@ -4,6 +4,7 @@ var game = {
         document.querySelectorAll('.btn').forEach( btn => btn.style.visibility = 'hidden');
 
         var obstaclePreference = window.obstaclePreference || '0';
+        var speedPreference = window.speedPreference || '0';
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
         var animationFrame = 0;
@@ -21,7 +22,7 @@ var game = {
         var randY = Math.floor(Math.random() * (canvas.height / 10)) * 10;
         var food = new entities.Food(randX, randY);
 
-        var data = { obstaclePreference, canvas, context, animationFrame, gameOver, gameRunning, snake, score, foodEaten, level, walls, food };
+        var data = { obstaclePreference, speedPreference, canvas, context, animationFrame, gameOver, gameRunning, snake, score, foodEaten, level, walls, food };
 
         window.addEventListener('keydown', function(e) { 
             game.handleInput(e, data) 
@@ -38,7 +39,9 @@ var game = {
                 if (data.gameRunning){
                     // Every 2 levels, the speedModulus goes down, and the snake's speed goes up (up to a certain point)
                     let speedModulus = 6 - Math.floor(data.level / 2);
-                    if (speedModulus < 2) speedModulus = 2;
+
+                    // Max speedModulus of 2
+                    if (speedModulus < 2 || data.speedPreference == '1') speedModulus = 2;
     
                     if (data.animationFrame % speedModulus === 0) {
                         game.update(data);

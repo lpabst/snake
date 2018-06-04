@@ -19,6 +19,13 @@ function updateObstaclePreference(e){
 }
 updateObstaclePreference();
 
+// runs on page load, and also when user updates the value
+function updateSpeedPreference(){
+    var speedPreference = document.getElementById('speedPreference');
+    window.speedPreference = speedPreference.value;
+}
+updateSpeedPreference();
+
 function getHighScores(){    
     $.get('/api/getHighScores')
     .done( res => {

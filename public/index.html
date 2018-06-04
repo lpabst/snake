@@ -16,8 +16,13 @@
             <input id='username' placeholder="Type Your Name" onblur="displayUsername()" />
             <p>When I hit a red obstacle:</p>
             <select id='obstaclePreference' onchange="updateObstaclePreference()" >
-                <option value="0">Kill Me</option>
+                <option value="0">End the game</option>
                 <option value="1">Deduct 500 pts</option>
+            </select>
+            <p>Speed Control:</p>
+            <select id='speedPreference' onchange="updateSpeedPreference()" >
+                <option value="0">Increase Speed Over Time</option>
+                <option value="1">Start Me Out Fast!</option>
             </select>
             <div class='btn' id="startBtn" onclick="game.init()">New Game</div>
             <div class='btn' id="highScoresBtn" onclick="showHighScores()">High Scores</div>
