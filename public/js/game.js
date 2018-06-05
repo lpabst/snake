@@ -156,6 +156,16 @@ var game = {
     eatFood(data) {
         let { food, score, foodEaten, level } = data;
 
+        // Add points
+        data.score += 100 + (20 * data.level);
+        data.foodEaten++;
+
+        // Every 5 food increases the level and adds a wall
+        if (data.foodEaten % 5 === 0) {
+            data.level++;
+            game.addWall(data);
+        }
+
         // Move food
         let randX, randY;
         let findingGoodLocation = true;
@@ -179,16 +189,6 @@ var game = {
 
         data.food.x = randX;
         data.food.y = randY;
-
-        // Add points
-        data.score += 100 + (20 * data.level);
-        data.foodEaten++;
-
-        // Every 5 food increases the level and adds a wall
-        if (data.foodEaten % 5 === 0) {
-            data.level++;
-            game.addWall(data);
-        }
 
         // Make snake tail longer
         data.snake.tail.push([data.snake.oldX, data.snake.oldY]);
@@ -234,11 +234,11 @@ var game = {
         if (coinFlip < 0.5) {
             //vertical wall
             width = 10;
-            // random multiple of 10 between 200 - 400
-            height = Math.floor(Math.random() * 20) * 10 + 200;
+            // random multiple of 10 between 100 - 400
+            height = Math.floor(Math.random() * 30) * 10 + 100;
         } else {
             // horizontal wall
-            width = Math.floor(Math.random() * 20) * 10 + 200;
+            width = Math.floor(Math.random() * 30) * 10 + 100;
             height = 10;
         }
 
