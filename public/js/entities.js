@@ -24,7 +24,7 @@ var entities = {
             this.x += this.velX * this.scale;
             this.y += this.velY * this.scale;
 
-            // Then update thetail
+            // Then update the tail
             for (let i = 0; i < this.tail.length-1; i++){
                 this.tail[i] = this.tail[i+1];
             }

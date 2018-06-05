@@ -60,6 +60,11 @@ var game = {
 
     handleInput: function (e, data) {
                 
+        // Arrows shouldn't scroll the screen up and down
+        if (e.keyCode >= 37 && e.keyCode <= 40){
+            e.preventDefault();
+        }
+
         if (data.gameOver) return;
 
         // space bar pauses game
@@ -72,16 +77,12 @@ var game = {
 
         // Updates direction if game is not paused, but doesn't allow the snake to double back on itself
         if (e.keyCode === 37 && snake.velX !== 1 && data.gameRunning) {
-            e.preventDefault();
             snake.changeDirection(-1, 0);
         } else if (e.keyCode === 38 && snake.velY !== 1 && data.gameRunning) {
-            e.preventDefault();
             snake.changeDirection(0, -1);
         } else if (e.keyCode === 39 && snake.velX !== -1 && data.gameRunning) {
-            e.preventDefault();
             snake.changeDirection(1, 0);
         } else if (e.keyCode === 40 && snake.velY !== -1 && data.gameRunning) {
-            e.preventDefault();
             snake.changeDirection(0, 1);
         } 
     },
