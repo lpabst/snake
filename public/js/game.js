@@ -246,8 +246,22 @@ var game = {
         if (randX + width > canvas.width) { randX = canvas.width - width }
         if (randY + height > canvas.height) { randY = canvas.height - height }
 
-        let newWall = new entities.Wall(randX, randY, width, height);
-        data.walls.push(newWall);
+        // Check if new wall is touching any existing walls
+        let wallsAreTouching = false;
+        data.walls.forEach(function (wall) {
+            if ((randX+width) >= wall.x && randX <= (wall.x + wall.w) && (randY+height) >= wall.y && randY <= (wall.y + wall.h)) {
+                wallsAreTouching = true;
+            }
+        })
+        
+        // If walls are touching, pick a new size/location for the wall
+        // Once we have 20 walls, allow them to overlap
+        if(wallsAreTouching && data.walls.length < 20){
+            game.addWall(data);
+        }else{
+            let newWall = new entities.Wall(randX, randY, width, height);
+            data.walls.push(newWall);
+        }
     },
 
     gameOver(data) {
